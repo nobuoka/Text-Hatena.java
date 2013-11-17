@@ -17,10 +17,8 @@ import nu.validator.htmlparser.dom.Dom2Sax;
 import nu.validator.htmlparser.sax.HtmlSerializer;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
-import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.ext.DefaultHandler2;
 
 public class StructuredTextToHtmlConverter {
     public void convert(StructuredText srcDoc, Writer out) {
@@ -33,7 +31,7 @@ public class StructuredTextToHtmlConverter {
     }
 }
 
-class ConverterSaxHandler implements ContentHandler, LexicalHandler {
+class ConverterSaxHandler extends DefaultHandler2 {
 
     private static final String HTML_NS = "http://www.w3.org/1999/xhtml";
 
@@ -41,12 +39,12 @@ class ConverterSaxHandler implements ContentHandler, LexicalHandler {
         return new OutputStreamWriter(out, Charset.forName("UTF-8"));
     }
 
-    interface StartElementListener {
+    private interface StartElementListener {
         void onStartElement(String uri, String localName, String qName,
                 Attributes atts);
     }
 
-    interface ElementHandler {
+    private interface ElementHandler {
         public String targetNamespaceUri();
         public String targetLocalName();
         public void startElement(Attributes atts);
@@ -280,14 +278,6 @@ class ConverterSaxHandler implements ContentHandler, LexicalHandler {
     }
 
     @Override
-    public void startDocument() throws SAXException {
-    }
-
-    @Override
-    public void endDocument() throws SAXException {
-    }
-
-    @Override
     public void startElement(String uri, String localName, String qName,
             Attributes atts) throws SAXException {
         for (StartElementListener listener : startElementListeners) {
@@ -331,63 +321,6 @@ class ConverterSaxHandler implements ContentHandler, LexicalHandler {
         if (rawTextFlag) {
             htmlSerializer.characters(ch, start, length);
         }
-    }
-
-    @Override
-    public void ignorableWhitespace(char[] ch, int start, int length)
-            throws SAXException {
-        //characters(ch, start, length);
-    }
-
-    @Override
-    public void processingInstruction(String target, String data)
-            throws SAXException {
-    }
-
-    @Override
-    public void setDocumentLocator(Locator locator) {
-    }
-
-    @Override
-    public void comment(char[] ch, int start, int length) throws SAXException {
-    }
-
-    @Override
-    public void endCDATA() throws SAXException {
-    }
-
-    @Override
-    public void endDTD() throws SAXException {
-    }
-
-    @Override
-    public void endEntity(String name) throws SAXException {
-    }
-
-    @Override
-    public void startCDATA() throws SAXException {
-    }
-
-    @Override
-    public void startDTD(String name, String publicId, String systemId)
-            throws SAXException {
-    }
-
-    @Override
-    public void startEntity(String name) throws SAXException {
-    }
-
-    @Override
-    public void startPrefixMapping(String prefix, String uri)
-            throws SAXException {
-    }
-
-    @Override
-    public void endPrefixMapping(String prefix) throws SAXException {
-    }
-
-    @Override
-    public void skippedEntity(String name) throws SAXException {
     }
 
 }

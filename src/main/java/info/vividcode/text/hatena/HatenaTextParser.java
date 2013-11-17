@@ -1,7 +1,7 @@
 package info.vividcode.text.hatena;
 
-import info.vividcode.text.hatena.processors.HeadlineProcessor;
-import info.vividcode.text.hatena.processors.ListProcessor;
+import info.vividcode.text.hatena.parser.processors.HeadlineProcessor;
+import info.vividcode.text.hatena.parser.processors.ListProcessor;
 
 import java.io.IOException;
 import java.io.StringWriter;

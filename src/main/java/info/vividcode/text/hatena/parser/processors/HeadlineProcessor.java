@@ -1,4 +1,4 @@
-package info.vividcode.text.hatena.processors;
+package info.vividcode.text.hatena.parser.processors;
 
 import info.vividcode.text.hatena.Processor;
 import info.vividcode.text.hatena.ProcessorCursorList;
