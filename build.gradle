@@ -9,7 +9,7 @@ targetCompatibility = '1.7'
 
 archivesBaseName = 'text-hatena'
 project.group = 'info.vividcode'
-project.version = '0.1.0-SNAPSHOT'
+project.version = '0.1.0-alpha-1'
 
 repositories {
     mavenCentral()
